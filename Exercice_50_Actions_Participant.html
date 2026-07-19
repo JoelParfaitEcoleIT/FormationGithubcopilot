@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>50 actions GitHub Copilot — Feuille participant</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#FBFBF8; --accent:#1B3A5C; --accent2:#2C5C8F;
+  --text:#16161B; --text-dim:#3c3c46; --text-mute:#6b6b76;
+  --card:#FFFFFF; --card-border:#DDE3EC; --sec:#E8EEF7; --gold:#B9862E;
+}
+*{box-sizing:border-box;}
+body{margin:0;font-family:'Poppins',sans-serif;background:var(--bg);color:var(--text);line-height:1.5;}
+.page{max-width:900px;margin:0 auto;padding:32px 28px 80px 28px;}
+header.hero{background:var(--accent);color:#fff;padding:28px 32px;border-radius:0 0 16px 16px;margin-bottom:24px;}
+header.hero h1{margin:0 0 6px 0;font-size:1.6rem;}
+header.hero p{margin:0;opacity:.85;font-size:.88rem;}
+.identity{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;background:var(--card);border:1px solid var(--card-border);border-radius:10px;padding:16px 20px;margin-bottom:24px;}
+.identity label{display:block;font-size:.76rem;color:var(--text-mute);margin-bottom:4px;}
+.identity input,.identity select{width:100%;padding:7px 9px;border:1px solid var(--card-border);border-radius:6px;font-family:inherit;font-size:.9rem;}
+.intro-box{background:var(--sec);border-left:4px solid var(--gold);border-radius:8px;padding:14px 18px;margin-bottom:28px;font-size:.86rem;color:var(--text-dim);}
+h2.phase-title{color:var(--accent);font-size:1.15rem;border-bottom:2px solid var(--sec);padding-bottom:6px;margin:36px 0 16px 0;}
+.action{background:var(--card);border:1px solid var(--card-border);border-radius:10px;padding:14px 18px;margin-bottom:14px;page-break-inside:avoid;break-inside:avoid;}
+.action-head{display:flex;align-items:center;gap:10px;margin-bottom:6px;}
+.action-num{background:var(--accent);color:#fff;font-family:'JetBrains Mono',monospace;font-weight:700;font-size:.8rem;width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.action-head h3{margin:0;font-size:.98rem;color:var(--accent);}
+.action-instr{font-size:.86rem;color:var(--text-dim);margin:0 0 8px 36px;}
+.action-prompt{margin:0 0 8px 36px;font-family:'JetBrains Mono',monospace;background:#12213a;color:#bfe6c9;border-radius:6px;padding:9px 12px;font-size:.76rem;white-space:pre-wrap;}
+.action-label{display:block;margin:0 0 4px 36px;font-size:.74rem;color:var(--text-mute);}
+.action-answer{display:block;margin-left:36px;width:calc(100% - 36px);border:1px solid var(--card-border);border-radius:6px;padding:8px 10px;font-family:inherit;font-size:.86rem;resize:vertical;}
+.action-check{margin-left:36px;margin-top:6px;font-size:.78rem;color:var(--text-mute);display:flex;align-items:center;gap:6px;}
+.synthesis{background:#FBF7EC;border:1px solid #EAD3A0;border-radius:10px;padding:18px 22px;margin-top:20px;}
+.synthesis h2{color:var(--accent);margin-top:0;}
+.synthesis label{display:block;font-weight:600;font-size:.88rem;margin:14px 0 6px 0;color:var(--text);}
+.synthesis textarea{width:100%;border:1px solid var(--card-border);border-radius:6px;padding:8px 10px;font-family:inherit;font-size:.88rem;}
+#exportBtn{position:fixed;top:18px;right:22px;z-index:60;background:var(--accent);color:#fff;border:none;padding:10px 18px;border-radius:20px;font-family:'Poppins',sans-serif;font-size:.82rem;font-weight:600;cursor:pointer;box-shadow:0 2px 8px rgba(27,58,92,.2);}
+#exportBtn:hover{background:var(--accent2);}
+footer.sign{margin-top:32px;font-size:.78rem;color:var(--text-mute);text-align:center;}
+@media print{
+  #exportBtn{display:none;}
+  body{background:#fff;}
+  .action,.identity,.synthesis{break-inside:avoid;}
+  a[href]:after{content:"";}
+}
+</style>
+</head>
+<body>
+
+<button id="exportBtn" type="button" title="Ouvre la boîte d'impression — choisissez « Enregistrer au format PDF »">⬇ Exporter en PDF</button>
+
+<div class="page">
+
+<header class="hero">
+  <h1>50 actions pour maîtriser GitHub Copilot</h1>
+  <p>Feuille participant — à remplir sur la codebase <strong>TaskBoard</strong> (HTML/CSS uniquement) — Formation Transactis · Digital House Company</p>
+</header>
+
+<div class="identity">
+  <div><label for="p-nom">Nom / Prénom</label><input type="text" id="p-nom" placeholder="Votre nom"></div>
+  <div><label for="p-date">Date</label><input type="date" id="p-date"></div>
+  <div><label for="p-niveau">Niveau suivi</label>
+    <select id="p-niveau">
+      <option value="">Choisir…</option>
+      <option>🟢 Facile</option>
+      <option>🟡 Intermédiaire</option>
+      <option>🔴 Pro</option>
+    </select>
+  </div>
+</div>
+
+<div class="intro-box">
+  Remplissez ce document au fil des 50 actions, sur le projet <code>codebase_taskboard/</code>. Pour chaque action : réalisez ce qui est demandé dans Copilot Chat (ou l'éditeur), puis notez brièvement ce que vous avez fait ou observé dans le champ prévu. À la fin, cliquez sur <strong>« Exporter en PDF »</strong> (en haut à droite) et remettez le fichier au formateur pour correction.
+  <br><br>🔒 Aucune donnée réelle : le projet est entièrement fictif. 👀 Relisez toujours une proposition de Copilot avant de l'accepter.
+</div>
+
+<h2 class="phase-title">Phase 1 — Mise en place</h2>
+
+<div class="action"><div class="action-head"><span class="action-num">1</span><h3>Ouvrir le projet</h3></div>
+<p class="action-instr">Ouvrez le dossier <code>codebase_taskboard/</code> dans votre éditeur.</p>
+<label class="action-label">Ce que vous observez dans l'arborescence :</label>
+<textarea class="action-answer" rows="2"></textarea></div>
+
+<div class="action"><div class="action-head"><span class="action-num">2</span><h3>Vérifier Copilot</h3></div>
+<p class="action-instr">Vérifiez que l'icône GitHub Copilot est active dans la barre d'état.</p>
+<label class="action-label">État observé :</label>
+<textarea class="action-answer" rows="1"></textarea></div>
+
+<div class="action"><div class="action-head"><span class="action-num">3</span><h3>Repérer le modèle</h3></div>
+<p class="action-instr">Ouvrez Copilot Chat et notez le nom du modèle actif par défaut.</p>
+<label class="action-label">Nom du modèle :</label>
+<textarea class="action-answer" rows="1"></textarea></div>
+
+<div class="action"><div class="action-head"><span class="action-num">4</span><h3>Première suggestion inline</h3></div>
+<p class="action-instr">Dans un fichier vide, tapez ce commentaire et attendez :</p>
+<div class="action-prompt">&lt;!-- section héros avec titre et sous-titre --&gt;</div>
+<label class="action-label">Ce qui s'affiche :</label>
+<textarea class="action-answer" rows="2"></textarea></div>
+
+<div class="action"><div class="action-head"><span class="action-num">5</span><h3>Accepter / annuler</h3></div>
+<p class="action-instr">Appuyez sur <code>Tab</code> pour accepter la suggestion, puis <code>Ctrl+Z</code> pour annuler.</p>
+<label class="action-label">Confirmation :</label>
+<textarea class="action-answer" rows="1"></textarea></div>
+
+<h2 class="phase-title">Phase 2 — Les variables de contexte #</h2>
+
+<div class="action"><div class="action-head"><span class="action-num">6</span><h3>#file + /explain</h3></div>
+<div class="action-prompt">#file:index.html
+/explain</div>
+<label class="action-label">Résumé de la réponse :</label>
+<textarea class="action-answer" rows="2"></textarea></div>
+
+<div class="action"><div class="action-head"><span class="action-num">7</span><h3>Analyser le CSS hérité</h3></div>
+<div class="action-prompt">#file:css/legacy-styles.css
+Liste les problèmes de ce fichier CSS, sans corriger.</div>
+<label class="action-label">Problèmes identifiés :</label>
+<textarea class="action-answer" rows="3"></textarea></div>
+
+<div class="action"><div class="action-head"><span class="action-num">8</span><h3>#selection</h3></div>
+<p class="action-instr">Sélectionnez <code>&lt;section class="board"&gt;</code> dans <code>index.html</code>, puis :</p>
+<div class="action-prompt">#selection
+Explique ce bloc.</div>
+<label class="action-label">Réponse obtenue :</label>
+<textarea class="action-answer" rows="2"></textarea></div>
+
+<div class="action"><div class="action-head"><span class="action-num">9</span><h3>#codebase vs #file</h3></div>
+<div class="action-prompt">#codebase
+Où est définie la classe .card ?</div>
+<label class="action-label">Différence observée avec #file:css/components.css :</label>
+<textarea class="action-answer" rows="2"></textarea></div>
+
+<div class="action"><div class="action-head"><span class="action-num">10</span><h3>#block</h3></div>
+<p class="action-instr">Curseur dans la règle <code>.board</code> de <code>css/layout.css</code>, puis :</p>
+<div class="action-prompt">#block
+Explique ce que fait ce bloc de règles.</div>
+<label class="action-label">Réponse :</label>
+<textarea class="action-answer" rows="2"></textarea></div>
+
+<div class="action"><div class="action-head"><span class="action-num">11</span><h3>#class</h3></div>
+<p class="action-instr">Curseur sur <code>.card</code> dans <code>css/components.css</code>, puis :</p>
+<div class="action-prompt">#class
+Où ce sélecteur est-il utilisé ?</div>
+<label class="action-label">Réponse :</label>
+<textarea class="action-answer" rows="2"></textarea></div>
+
+<div class="action"><div class="action-head"><span class="action-num">12</span><h3>#comment</h3></div>
+<p class="action-instr">Curseur sur le commentaire NOTE PEDAGOGIQUE de <code>css/legacy-styles.css</code>, puis :</p>
+<div class="action-prompt">#comment
+Explique ce que ce commentaire demande de faire.</div>
+<label class="action-label">Réponse :</label>
+<textarea class="action-answer" rows="2"></textarea></div>
+
+<div class="action"><div class="action-head"><span class="action-num">13</span><h3>#path</h3></div>
+<p class="action-instr">Ouvrez <code>about.html</code>, puis :</p>
+<div class="action-prompt">#path
+D'après ce chemin de fichier, à quoi sert cette page ?</div>
+<label class="action-label">Réponse :</label>
+<textarea class="action-answer" rows="2"></textarea></div>
+
+<div class="action"><div class="action-head"><span class="action-num">14</span><h3>#project</h3></div>
+<div class="action-prompt">#project
+Résume l'organisation de ce projet en 3 lignes.</div>
+<label class="action-label">Résumé obtenu :</label>
+<textarea class="action-answer" rows="3"></textarea></div>
+
+<h2 class="phase-title">Phase 3 — Les participants de chat @</h2>
+
+<div class="action"><div class="action-head"><span class="action-num">15</span><h3>@workspace</h3></div>
+<div class="action-prompt">@workspace Où est définie la classe .card ?</div>
+<label class="action-label">Réponse :</label>
+<textarea class="action-answer" rows="2"></textarea></div>
+
+<div class="action"><div class="action-head"><span class="action-num">16</span><h3>@vscode</h3></div>
+<div class="action-prompt">@vscode Comment afficher le panneau des problèmes (Problems) ?</div>
+<label class="action-label">Réponse :</label>
+<textarea class="action-answer" rows="2"></textarea></div>
+
+<div class="action"><div class="action-head"><span class="action-num">17</span><h3>@terminal</h3></div>
+<p class="action-instr">Ouvrez le terminal, tapez une commande simple, puis :</p>
+<div class="action-prompt">@terminal Explique la dernière commande exécutée.</div>
+<label class="action-label">Réponse :</label>
+<textarea class="action-answer" rows="2"></textarea></div>
+
+<div class="action"><div class="action-head"><span class="action-num">18</span><h3>@github</h3></div>
+<div class="action-prompt">@github Résume les issues ouvertes de ce dépôt.</div>
+<label class="action-label">Réponse (ou « non disponible ») :</label>
+<textarea class="action-answer" rows="2"></textarea></div>
+
+<div class="action"><div class="action-head"><span class="action-num">19</span><h3>@azure</h3></div>
+<div class="action-prompt">@azure Je veux héberger un site HTML/CSS statique, quelle est la première étape ?</div>
+<label class="action-label">Réponse :</label>
+<textarea class="action-answer" rows="2"></textarea></div>
+
+<h2 class="phase-title">Phase 4 — Commandes slash</h2>
+
+<div class="action"><div class="action-head"><span class="action-num">20</span><h3>/explain</h3></div>
+<div class="action-prompt">#file:about.html
+/explain</div>
+<label class="action-label">Résumé :</label>
+<textarea class="action-answer" rows="2"></textarea></div>
+
+<div class="action"><div class="action-head"><span class="action-num">21</span><h3>/fix</h3></div>
+<p class="action-instr">Sélectionnez tout <code>css/legacy-styles.css</code>, puis :</p>
+<div class="action-prompt">/fix
+Réécris avec les variables de css/variables.css, sans !important.</div>
+<label class="action-label">Résultat obtenu (résumé) :</label>
+<textarea class="action-answer" rows="2"></textarea></div>
+
+<div class="action"><div class="action-head"><span class="action-num">22</span><h3>/doc</h3></div>
+<p class="action-instr">Sélectionnez la règle <code>.form-panel</code> dans <code>css/components.css</code>, puis :</p>
+<div class="action-prompt">/doc</div>
+<label class="action-label">Commentaire généré :</label>
+<textarea class="action-answer" rows="2"></textarea></div>
+
+<div class="action"><div class="action-head"><span class="action-num">23</span><h3>/help</h3></div>
+<div class="action-prompt">/help</div>
+<label class="action-label">Ce que Copilot rappelle :</label>
+<textarea class="action-answer" rows="2"></textarea></div>
+
+<div class="action"><div class="action-head"><span class="action-num">24</span><h3>/new</h3></div>
+<div class="action-prompt">/new
+Crée un squelette de nouvelle page HTML avec la même structure que index.html.</div>
+<label class="action-label">Structure proposée :</label>
+<textarea class="action-answer" rows="2"></textarea></div>
+
+<div class="action"><div class="action-head"><span class="action-num">25</span><h3>/clear</h3></div>
+<p class="action-instr"><code>/clear</code>, puis reposez une question sans remettre <code>#file</code>.</p>
+<label class="action-label">Ce qui se passe :</label>
+<textarea class="action-answer" rows="2"></textarea></div>
+
+<h2 class="phase-title">Phase 5 — Raccourcis clavier</h2>
+
+<div class="action"><div class="action-head"><span class="action-num">26</span><h3>Accepter (Tab)</h3></div>
+<label class="action-label">Fait :</label>
+<textarea class="action-answer" rows="1"></textarea></div>
+
+<div class="action"><div class="action-head"><span class="action-num">27</span><h3>Refuser (Échap)</h3></div>
+<label class="action-label">Fait :</label>
+<textarea class="action-answer" rows="1"></textarea></div>
+
+<div class="action"><div class="action-head"><span class="action-num">28</span><h3>Ouvrir le panneau (Ctrl+Entrée)</h3></div>
+<label class="action-label">Fait :</label>
+<textarea class="action-answer" rows="1"></textarea></div>
+
+<h2 class="phase-title">Phase 6 — Choisir un modèle</h2>
+
+<div class="action"><div class="action-head"><span class="action-num">29</span><h3>Modèle actif</h3></div>
+<p class="action-instr">Comparez avec votre note de l'action 3.</p>
+<label class="action-label">Identique ou différent ?</label>
+<textarea class="action-answer" rows="1"></textarea></div>
+
+<div class="action"><div class="action-head"><span class="action-num">30</span><h3>Changer de modèle</h3></div>
+<label class="action-label">Nouveau modèle choisi :</label>
+<textarea class="action-answer" rows="1"></textarea></div>
+
+<div class="action"><div class="action-head"><span class="action-num">31</span><h3>Comparer 2 modèles</h3></div>
+<p class="action-instr">Reposez la question de l'action 7 à 2 modèles différents, dans 2 conversations séparées.</p>
+<label class="action-label">Différence observée :</label>
+<textarea class="action-answer" rows="2"></textarea></div>
+
+<div class="action"><div class="action-head"><span class="action-num">32</span><h3>Choisir un modèle par défaut</h3></div>
+<label class="action-label">Votre choix et justification :</label>
+<textarea class="action-answer" rows="2"></textarea></div>
+
+<h2 class="phase-title">Phase 7 — Agent mode</h2>
+
+<div class="action"><div class="action-head"><span class="action-num">33</span><h3>Activer l'Agent mode</h3></div>
+<label class="action-label">Fait :</label>
+<textarea class="action-answer" rows="1"></textarea></div>
+
+<div class="action"><div class="action-head"><span class="action-num">34</span><h3>Tâche multi-fichiers</h3></div>
+<div class="action-prompt">Ajoute une 4e colonne "Annulé" au tableau de index.html, avec le
+style correspondant dans css/layout.css.</div>
+<label class="action-label">Fichiers modifiés proposés :</label>
+<textarea class="action-answer" rows="2"></textarea></div>
+
+<div class="action"><div class="action-head"><span class="action-num">35</span><h3>Observer avant validation</h3></div>
+<label class="action-label">Ce que vous avez vu avant d'accepter :</label>
+<textarea class="action-answer" rows="2"></textarea></div>
+
+<div class="action"><div class="action-head"><span class="action-num">36</span><h3>Interrompre l'agent</h3></div>
+<label class="action-label">Résultat de l'interruption :</label>
+<textarea class="action-answer" rows="1"></textarea></div>
+
+<h2 class="phase-title">Phase 8 — Cloud agent</h2>
+
+<div class="action"><div class="action-head"><span class="action-num">37</span><h3>Repérer le cloud agent</h3></div>
+<label class="action-label">Où l'avez-vous trouvé :</label>
+<textarea class="action-answer" rows="2"></textarea></div>
+
+<div class="action"><div class="action-head"><span class="action-num">38</span><h3>Rédiger une consigne complète</h3></div>
+<label class="action-label">Votre consigne (contexte, objectif, contrainte, vérification) :</label>
+<textarea class="action-answer" rows="3"></textarea></div>
+
+<div class="action"><div class="action-head"><span class="action-num">39</span><h3>Checklist de revue humaine</h3></div>
+<label class="action-label">Vos 3 points de vérification :</label>
+<textarea class="action-answer" rows="3"></textarea></div>
+
+<h2 class="phase-title">Phase 9 — Agents personnalisés et sous-agents</h2>
+
+<div class="action"><div class="action-head"><span class="action-num">40</span><h3>Créer reviewer.agent.md</h3></div>
+<label class="action-label">Emplacement choisi :</label>
+<textarea class="action-answer" rows="1"></textarea></div>
+
+<div class="action"><div class="action-head"><span class="action-num">41</span><h3>Tester reviewer</h3></div>
+<p class="action-instr">Invoquez-le sur <code>css/legacy-styles.css</code>.</p>
+<label class="action-label">A-t-il respecté son périmètre ?</label>
+<textarea class="action-answer" rows="2"></textarea></div>
+
+<div class="action"><div class="action-head"><span class="action-num">42</span><h3>Créer planner.agent.md + handoffs</h3></div>
+<div class="action-prompt">Je veux ajouter une page de statistiques.</div>
+<label class="action-label">Le handoff a-t-il fonctionné ?</label>
+<textarea class="action-answer" rows="2"></textarea></div>
+
+<h2 class="phase-title">Phase 10 — Skills</h2>
+
+<div class="action"><div class="action-head"><span class="action-num">43</span><h3>Créer SKILL.md</h3></div>
+<label class="action-label">Résumé de votre skill :</label>
+<textarea class="action-answer" rows="2"></textarea></div>
+
+<div class="action"><div class="action-head"><span class="action-num">44</span><h3>Tester la skill</h3></div>
+<div class="action-prompt">#file:skills/validation-taskboard/SKILL.md
+Je veux ajouter un champ "tags" au formulaire. Applique la procédure
+avant de proposer du HTML/CSS.</div>
+<label class="action-label">La skill a-t-elle été suivie ?</label>
+<textarea class="action-answer" rows="2"></textarea></div>
+
+<h2 class="phase-title">Phase 11 — Plugins, hooks, MCP, workflows</h2>
+
+<div class="action"><div class="action-head"><span class="action-num">45</span><h3>Installer un plugin</h3></div>
+<label class="action-label">Plugin choisi (ou description si pas d'accès) :</label>
+<textarea class="action-answer" rows="2"></textarea></div>
+
+<div class="action"><div class="action-head"><span class="action-num">46</span><h3>Créer un hook</h3></div>
+<label class="action-label">Contenu de votre hooks.json (résumé) :</label>
+<textarea class="action-answer" rows="2"></textarea></div>
+
+<div class="action"><div class="action-head"><span class="action-num">47</span><h3>Context7</h3></div>
+<div class="action-prompt">Quelles sont les classes utilitaires actuelles de Tailwind CSS pour
+une grille à 3 colonnes ? use context7</div>
+<label class="action-label">Réponse obtenue (ou étapes lues si pas d'accès) :</label>
+<textarea class="action-answer" rows="2"></textarea></div>
+
+<div class="action"><div class="action-head"><span class="action-num">48</span><h3>Workflow agentique</h3></div>
+<label class="action-label">Votre déclencheur choisi (on: ...) et sa raison :</label>
+<textarea class="action-answer" rows="2"></textarea></div>
+
+<h2 class="phase-title">Phase 12 — Instructions et bilan</h2>
+
+<div class="action"><div class="action-head"><span class="action-num">49</span><h3>copilot-instructions.md</h3></div>
+<label class="action-label">Vos 3 règles principales :</label>
+<textarea class="action-answer" rows="3"></textarea></div>
+
+<div class="synthesis">
+<h2>Action 50 — Bilan final (réponse structurée)</h2>
+<label for="s1">1. Trois commandes que vous réutiliserez dès cette semaine</label>
+<textarea id="s1" rows="2"></textarea>
+<label for="s2">2. Un agent, une skill ou un plugin que vous comptez créer pour votre équipe</label>
+<textarea id="s2" rows="2"></textarea>
+<label for="s3">3. Une règle de sécurité que vous appliquerez sans exception</label>
+<textarea id="s3" rows="2"></textarea>
+<label for="s4">4. Un réflexe de sobriété (modèle, ciblage, session) que vous garderez</label>
+<textarea id="s4" rows="2"></textarea>
+</div>
+
+<footer class="sign">
+  Document à exporter en PDF (bouton en haut à droite) et à remettre au formateur pour correction.<br>
+  Digital House Company — Joël Parfait Kuate · hello@dhcompany.pro
+</footer>
+
+</div>
+
+<script>
+document.getElementById('exportBtn').addEventListener('click', () => {
+  window.print();
+});
+</script>
+</body>
+</html>
