@@ -12,7 +12,7 @@ Ce document regroupe les commandes et outils visibles dans les captures d’écr
 | `@` | Désigne un participant, un agent ou un groupe d’outils. | `@terminal explique cette erreur` |
 | `#` | Ajoute explicitement un outil, une ressource ou un contexte au prompt. | `Analyse ce bug avec #browser` |
 
-Dans l’interface montrée sur les captures, les outils apparaissent avec `@`. Dans la documentation récente de VS Code, ils sont aussi souvent référencés avec la syntaxe `#tool:` ou `#browser` dans les fichiers de prompt et d’agent.
+Les outils apparaissent avec `@`. Dans la documentation récente de VS Code, ils sont aussi souvent référencés avec la syntaxe `#tool:` ou `#browser` dans les fichiers de prompt et d’agent.
 
 ---
 
