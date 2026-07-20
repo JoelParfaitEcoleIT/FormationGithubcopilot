@@ -16,6 +16,8 @@ Dossier autonome, basé sur trois sources officielles : [docs.github.com/copilot
 4. **[Exercice_Pratique_10_Etapes_3_Niveaux.md](Exercice_Pratique_10_Etapes_3_Niveaux.md)** — exercice complémentaire plus court, 10 étapes en 3 pistes (🟢 Facile · 🟡 Intermédiaire · 🔴 Pro), pour une session plus courte ou une pratique en autonomie après la formation.
 
 5. **[codebase_taskboard/](codebase_taskboard/)** — la codebase d'exercice, **12 fichiers HTML/CSS, aucun JavaScript**, fonctionnelle et vérifiée (aucune installation : ouvrez `index.html`). Un fichier CSS volontairement mal écrit (`css/legacy-styles.css`) sert de cible à l'exercice d'amélioration de code.
+   
+6 *Quizz**
 
 https://quiz-whiz-fest.lovable.app
 
