@@ -17,6 +17,8 @@ Dossier autonome, basé sur trois sources officielles : [docs.github.com/copilot
 
 5. **[codebase_taskboard/](codebase_taskboard/)** — la codebase d'exercice, **12 fichiers HTML/CSS, aucun JavaScript**, fonctionnelle et vérifiée (aucune installation : ouvrez `index.html`). Un fichier CSS volontairement mal écrit (`css/legacy-styles.css`) sert de cible à l'exercice d'amélioration de code.
 
+https://quiz-whiz-fest.lovable.app
+
 ## Différence avec les autres versions du dossier de formation
 
 Ce dossier est indépendant des versions précédentes (`Version_Facile_Debutant/`, notebooks Python `Ateliers/`). Il s'appuie sur une codebase **front-end HTML/CSS pure** — choix délibéré pour un public débutant — et va plus loin sur l'écosystème avancé de Copilot tout en restant accessible grâce aux exercices en plusieurs niveaux.
