@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Agents, Skills, Prompts — Exercice à remettre</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#FBFBF8;--accent:#1B3A5C;--accent2:#2C5C8F;--text:#16161B;--text-dim:#3c3c46;--text-mute:#6b6b76;--card:#FFFFFF;--card-border:#DDE3EC;--sec:#E8EEF7;--gold:#B9862E;}
+*{box-sizing:border-box;}
+body{margin:0;font-family:'Poppins',sans-serif;background:var(--bg);color:var(--text);line-height:1.5;}
+.page{max-width:900px;margin:0 auto;padding:32px 28px 80px 28px;}
+header.hero{background:var(--accent);color:#fff;padding:28px 32px;border-radius:0 0 16px 16px;margin-bottom:24px;}
+header.hero h1{margin:0 0 6px 0;font-size:1.5rem;}
+header.hero p{margin:0;opacity:.85;font-size:.88rem;}
+.identity{display:grid;grid-template-columns:1fr 1fr;gap:14px;background:var(--card);border:1px solid var(--card-border);border-radius:10px;padding:16px 20px;margin-bottom:24px;}
+.identity label{display:block;font-size:.76rem;color:var(--text-mute);margin-bottom:4px;}
+.identity input{width:100%;padding:7px 9px;border:1px solid var(--card-border);border-radius:6px;font-family:inherit;font-size:.9rem;}
+.intro-box{background:var(--sec);border-left:4px solid var(--gold);border-radius:8px;padding:14px 18px;margin-bottom:28px;font-size:.86rem;color:var(--text-dim);}
+h2.grp{color:var(--accent);font-size:1.1rem;border-bottom:2px solid var(--sec);padding-bottom:6px;margin:32px 0 14px 0;}
+.step{background:var(--card);border:1px solid var(--card-border);border-radius:10px;padding:14px 18px;margin-bottom:12px;page-break-inside:avoid;break-inside:avoid;}
+.step-head{display:flex;align-items:center;gap:10px;margin-bottom:6px;}
+.step-num{background:var(--accent);color:#fff;font-family:'JetBrains Mono',monospace;font-weight:700;font-size:.78rem;width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.step h3{margin:0;font-size:.94rem;color:var(--accent);}
+.step-instr{font-size:.85rem;color:var(--text-dim);margin:0 0 8px 34px;}
+.step-prompt{margin:0 0 8px 34px;font-family:'JetBrains Mono',monospace;background:#12213a;color:#bfe6c9;border-radius:6px;padding:9px 12px;font-size:.76rem;white-space:pre-wrap;}
+.step-label{display:block;margin:0 0 4px 34px;font-size:.74rem;color:var(--text-mute);}
+.step-ans{display:block;margin-left:34px;width:calc(100% - 34px);border:1px solid var(--card-border);border-radius:6px;padding:8px 10px;font-family:inherit;font-size:.85rem;resize:vertical;}
+#exportBtn{position:fixed;top:18px;right:22px;z-index:60;background:var(--accent);color:#fff;border:none;padding:10px 18px;border-radius:20px;font-family:'Poppins',sans-serif;font-size:.82rem;font-weight:600;cursor:pointer;box-shadow:0 2px 8px rgba(27,58,92,.2);}
+#exportBtn:hover{background:var(--accent2);}
+footer.sign{margin-top:32px;font-size:.78rem;color:var(--text-mute);text-align:center;}
+@media print{#exportBtn{display:none;}body{background:#fff;}.step,.identity{break-inside:avoid;}}
+</style>
+</head>
+<body>
+<button id="exportBtn" type="button">⬇ Exporter en PDF</button>
+<div class="page">
+
+<header class="hero">
+  <h1>Agents, Skills, Prompts — GitHub Copilot</h1>
+  <p>Exercice à remettre — basé sur <strong>TaskBoard</strong> (HTML/CSS) — Formation Transactis · Digital House Company</p>
+</header>
+
+<div class="identity">
+  <div><label for="p-nom">Nom / Prénom</label><input type="text" id="p-nom"></div>
+  <div><label for="p-date">Date</label><input type="date" id="p-date"></div>
+</div>
+
+<div class="intro-box">
+  Ouvrez <code>codebase_taskboard/</code>. Réalisez chaque étape dans Copilot (inline ou Chat), notez le résultat dans le champ. À la fin, cliquez <strong>« ⬇ Exporter en PDF »</strong> et remettez le fichier.
+  <br>🔒 Aucune donnée réelle. 👀 Relisez toujours avant d'accepter.
+</div>
+
+<h2 class="grp">A. Commandes essentielles</h2>
+
+<div class="step"><div class="step-head"><span class="step-num">1</span><h3>/explain sur contact.html</h3></div>
+<div class="step-prompt">#file:contact.html
+/explain</div>
+<label class="step-label">Résumé de la réponse :</label>
+<textarea class="step-ans" rows="2"></textarea></div>
+
+<div class="step"><div class="step-head"><span class="step-num">2</span><h3>/fix — champs obligatoires</h3></div>
+<p class="step-instr">Sélectionnez le formulaire dans contact.html, puis :</p>
+<div class="step-prompt">#selection
+/fix
+Vérifie que chaque champ obligatoire a required et un label associé.</div>
+<label class="step-label">Corrections proposées :</label>
+<textarea class="step-ans" rows="2"></textarea></div>
+
+<div class="step"><div class="step-head"><span class="step-num">3</span><h3>/doc — .form-choice</h3></div>
+<p class="step-instr">Sélectionnez la règle .form-choice dans css/components.css, puis :</p>
+<div class="step-prompt">/doc</div>
+<label class="step-label">Commentaire généré :</label>
+<textarea class="step-ans" rows="2"></textarea></div>
+
+<div class="step"><div class="step-head"><span class="step-num">4</span><h3>/explain sur legacy-styles.css</h3></div>
+<div class="step-prompt">#file:css/legacy-styles.css
+/explain</div>
+<label class="step-label">Problèmes listés :</label>
+<textarea class="step-ans" rows="2"></textarea></div>
+
+<div class="step"><div class="step-head"><span class="step-num">5</span><h3>@workspace</h3></div>
+<div class="step-prompt">@workspace Quels fichiers du projet contiennent un formulaire ?</div>
+<label class="step-label">Réponse :</label>
+<textarea class="step-ans" rows="2"></textarea></div>
+
+<h2 class="grp">B. Bien prompter (inline + Chat)</h2>
+
+<div class="step"><div class="step-head"><span class="step-num">6</span><h3>Prompt inline</h3></div>
+<p class="step-instr">Dans contact.html, juste avant &lt;/form&gt;, tapez :</p>
+<div class="step-prompt">&lt;!-- lien "Effacer le formulaire" sous le bouton d'envoi --&gt;</div>
+<label class="step-label">Ce qui s'affiche :</label>
+<textarea class="step-ans" rows="2"></textarea></div>
+
+<div class="step"><div class="step-head"><span class="step-num">7</span><h3>Prompt flou → précis</h3></div>
+<div class="step-prompt">#file:contact.html
+améliore ce formulaire</div>
+<p class="step-instr">Puis réécrivez avec Contexte/Objectif/Contrainte/Vérification :</p>
+<div class="step-prompt">#file:contact.html
+Objectif : ajoute un champ "Société" optionnel, après le champ Nom complet.
+Contrainte : réutilise le style de css/components.css, aucune nouvelle classe.
+Vérification : signale si le formulaire reste accessible.</div>
+<label class="step-label">Différence observée entre les 2 réponses :</label>
+<textarea class="step-ans" rows="3"></textarea></div>
+
+<div class="step"><div class="step-head"><span class="step-num">8</span><h3>/help</h3></div>
+<div class="step-prompt">/help</div>
+<label class="step-label">Ce que Copilot rappelle :</label>
+<textarea class="step-ans" rows="2"></textarea></div>
+
+<h2 class="grp">C. Agent personnalisé + sous-agent</h2>
+
+<div class="step"><div class="step-head"><span class="step-num">9</span><h3>Créer reviewer.agent.md</h3></div>
+<div class="step-prompt">.github/agents/reviewer.agent.md
+
+---
+name: reviewer
+description: Analyse uniquement le HTML/CSS de TaskBoard, ne modifie jamais rien
+tools: [read, search]
+---
+Tu es un agent de revue pour TaskBoard. Tu ne dois JAMAIS proposer de
+modification directe des fichiers, ni suggérer d'ajouter du JavaScript.
+Sortie toujours structurée : constat, risque, recommandation.</div>
+<label class="step-label">Fichier créé (oui/emplacement) :</label>
+<textarea class="step-ans" rows="1"></textarea></div>
+
+<div class="step"><div class="step-head"><span class="step-num">10</span><h3>Tester reviewer</h3></div>
+<div class="step-prompt">#file:contact.html
+Analyse ce formulaire et signale les risques (accessibilité, sécurité).</div>
+<label class="step-label">A-t-il respecté son périmètre (aucune modification) ?</label>
+<textarea class="step-ans" rows="2"></textarea></div>
+
+<div class="step"><div class="step-head"><span class="step-num">11</span><h3>Créer planner.agent.md (handoffs)</h3></div>
+<div class="step-prompt">.github/agents/planner.agent.md
+
+---
+name: planner
+description: Planifie une évolution de TaskBoard, sans écrire de code
+tools: [read, search]
+handoffs:
+  - label: Envoyer au relecteur
+    agent: reviewer
+    prompt: Relis ce plan et signale les risques avant toute implémentation
+    send: false
+---
+Tu proposes uniquement un plan en 3 à 5 étapes, jamais de code. Termine
+toujours en proposant l'envoi au relecteur.</div>
+<label class="step-label">Fichier créé (oui/emplacement) :</label>
+<textarea class="step-ans" rows="1"></textarea></div>
+
+<div class="step"><div class="step-head"><span class="step-num">12</span><h3>Tester le handoff</h3></div>
+<p class="step-instr">Sélectionnez l'agent planner, puis :</p>
+<div class="step-prompt">Je veux ajouter une case "Newsletter" au formulaire de contact.html.
+Propose un plan.</div>
+<label class="step-label">Le plan a-t-il bien été transmis au relecteur ?</label>
+<textarea class="step-ans" rows="2"></textarea></div>
+
+<h2 class="grp">D. Skill</h2>
+
+<div class="step"><div class="step-head"><span class="step-num">13</span><h3>Créer SKILL.md</h3></div>
+<div class="step-prompt">skills/validation-formulaire/SKILL.md
+
+# Validation formulaire TaskBoard
+Quand l'utiliser : avant d'ajouter/modifier un champ dans index.html ou
+contact.html.
+Comment procéder :
+1. Vérifie que chaque champ a un label associé.
+2. Vérifie que couleurs/espacements viennent de css/variables.css.
+3. Refuse toute proposition de JavaScript.</div>
+<label class="step-label">Fichier créé (oui/emplacement) :</label>
+<textarea class="step-ans" rows="1"></textarea></div>
+
+<div class="step"><div class="step-head"><span class="step-num">14</span><h3>Tester la skill</h3></div>
+<div class="step-prompt">#file:skills/validation-formulaire/SKILL.md
+Je veux ajouter un champ "Date souhaitée de rappel" à contact.html.
+Applique la procédure avant de proposer du HTML/CSS.</div>
+<label class="step-label">La réponse suit-elle les 3 étapes de la skill ?</label>
+<textarea class="step-ans" rows="2"></textarea></div>
+
+<footer class="sign">Digital House Company — Joël Parfait Kuate · hello@dhcompany.pro</footer>
+</div>
+<script>document.getElementById('exportBtn').addEventListener('click',()=>window.print());</script>
+</body>
+</html>
